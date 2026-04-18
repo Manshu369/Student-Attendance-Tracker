@@ -20,21 +20,21 @@ void Student::markAttendance(const std::string& subject, bool present) {
     if (attendance.find(subject) == attendance.end()) {
         throw std::invalid_argument("Subject not found: " + subject);
     }
-    attendance[subject].second++;         // increment total
-    if (present) attendance[subject].first++; // increment present
+attendance[subject].total++;
+if (present) attendance[subject].present++;
 }
 
 double Student::getPercentage(const std::string& subject) const {
     auto it = attendance.find(subject);
     if (it == attendance.end() || it->second.second == 0) return 0.0;
-    return (100.0 * it->second.first) / it->second.second;
+  return (100.0 * it->second.present) / it->second.total;
 }
 
 bool Student::isBelowThreshold(const std::string& subject, double threshold) const {
     return getPercentage(subject) < threshold;
 }
 
-std::map<std::string, std::pair<int, int>> Student::getAllAttendance() const {
+std::map<std::string, Attendance> Student::getAllAttendance() const {
     return attendance;
 }
 

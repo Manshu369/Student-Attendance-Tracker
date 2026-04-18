@@ -3,7 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
-#include <sys/stat.h>
+#include <direct.h>
 
 AttendanceManager::AttendanceManager(const std::string& dataFile, const std::string& reportFile)
     : dataFile(dataFile), reportFile(reportFile) {
@@ -12,10 +12,9 @@ AttendanceManager::AttendanceManager(const std::string& dataFile, const std::str
 }
 
 void AttendanceManager::ensureDirectories() {
-    mkdir("data", 0777);
-    mkdir("reports", 0777);
+    _mkdir("data");
+    _mkdir("reports");
 }
-
 void AttendanceManager::addStudent(const std::string& name) {
     if (findStudent(name)) {
         std::cout << "Student already exists.\n";
